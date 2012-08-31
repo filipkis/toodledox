@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'ToodleDoX' target in the 'ToodleDoX' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
