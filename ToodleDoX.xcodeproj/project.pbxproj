@@ -13,6 +13,8 @@
 		6D1E32A815F10A6F003ABAFC /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6D1E32A615F10A6F003ABAFC /* Credits.rtf */; };
 		6D1E32AB15F10A6F003ABAFC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1E32AA15F10A6F003ABAFC /* AppDelegate.m */; };
 		6D1E32AE15F10A6F003ABAFC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D1E32AC15F10A6F003ABAFC /* MainMenu.xib */; };
+		6D1E32B615F10A84003ABAFC /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1E32B515F10A84003ABAFC /* Task.m */; };
+		6D1E32BC15F1194D003ABAFC /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1E32BB15F1194D003ABAFC /* Session.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,10 @@
 		6D1E32A915F10A6F003ABAFC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6D1E32AA15F10A6F003ABAFC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6D1E32AD15F10A6F003ABAFC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		6D1E32B415F10A84003ABAFC /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		6D1E32B515F10A84003ABAFC /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		6D1E32BA15F1194D003ABAFC /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		6D1E32BB15F1194D003ABAFC /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +92,10 @@
 				6D1E32AA15F10A6F003ABAFC /* AppDelegate.m */,
 				6D1E32AC15F10A6F003ABAFC /* MainMenu.xib */,
 				6D1E329E15F10A6F003ABAFC /* Supporting Files */,
+				6D1E32B415F10A84003ABAFC /* Task.h */,
+				6D1E32B515F10A84003ABAFC /* Task.m */,
+				6D1E32BA15F1194D003ABAFC /* Session.h */,
+				6D1E32BB15F1194D003ABAFC /* Session.m */,
 			);
 			path = ToodleDoX;
 			sourceTree = "<group>";
@@ -168,6 +178,8 @@
 			files = (
 				6D1E32A415F10A6F003ABAFC /* main.m in Sources */,
 				6D1E32AB15F10A6F003ABAFC /* AppDelegate.m in Sources */,
+				6D1E32B615F10A84003ABAFC /* Task.m in Sources */,
+				6D1E32BC15F1194D003ABAFC /* Session.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

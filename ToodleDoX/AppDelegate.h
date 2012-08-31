@@ -8,8 +8,19 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class Task;
+
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
+
+- (IBAction)add:(id)sender;
+
+- (IBAction)takeStringForName:(id)sender;
+- (IBAction)takeStringForContext:(id)sender;
+
+@property (strong) Task *task;
+
+
 
 @end
