@@ -7,27 +7,103 @@
 //
 
 #import "AppDelegate.h"
-#import "Task.h"
+#import "Session.h"
+
 
 @implementation AppDelegate
 
++(void)initialize {
+    [self setupDefaults];
+}
+
+-(void)awakeFromNib{
+    statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+    [statusItem setMenu:statusMenu];
+    [statusItem setImage:[NSImage imageNamed:@"tray_icon.png"]];
+    [statusItem setAlternateImage:[NSImage imageNamed:@"tray_icon_invert.png"]];
+    [statusItem setHighlightMode:YES];
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self
+           selector:@selector(newTaskWindow:)
+               name:@"OpenMainWindow"
+             object:nil];
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    Task *aTask = [[Task alloc] init];
-    [self setTask:aTask];
+    session = [[Session alloc] init];
+
+    
+    [NSEvent addGlobalMonitorForEventsMatchingMask:NSKeyDownMask
+                                           handler:^(NSEvent * event){
+                                               int flags = [event modifierFlags];
+                                               int altDown = flags & NSAlternateKeyMask;
+                                               if (([event keyCode] == 7) && altDown) {
+                                                   [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenMainWindow" object:nil];
+                                               };
+                                               
+                                           }];
+    //Task *aTask = [[Task alloc] init];
+    //[self setTask:aTask];
+    
+    
+    
+    /*NSString *tok = @"{\"token\":\"td50413e6157d31\"}";
+    NSData *data = [tok dataUsingEncoding:NSUTF8StringEncoding];
+
+    
+    
+    NSError *e = nil;
+    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableContainers error: &e];
+    
+    if (!jsonArray) {
+        NSLog(@"Error parsing JSON: %@", e);
+    } else {
+        NSLog(@"Token: %@",[jsonArray valueForKey:@"token"]);
+    }*/
+    
 }
 
 
 - (IBAction)add:(id)sender {
 }
 
-- (IBAction)takeStringForName:(id)sender {
-    NSString *newValue = [sender stringValue];
-    
-    [self.task setName:newValue];
-    
+- (IBAction)newTaskWindow:(id)sender {
+    [NSApp activateIgnoringOtherApps:YES];
+    controller = [[NewTaskWindowController alloc] initWithWindowNibName:@"NewTaskWindow"];
+    [controller setSession:session];
+    [controller showWindow:self];
+
+
 }
 
-- (IBAction)takeStringForContext:(id)sender {
++ (void)setupDefaults
+{
+    NSString *userDefaultsValuesPath;
+    NSDictionary *userDefaultsValuesDict;
+    
+    // load the default values for the user defaults
+    userDefaultsValuesPath=[[NSBundle mainBundle] pathForResource:@"UserDefaults"
+                                                           ofType:@"plist"];
+    userDefaultsValuesDict=[NSDictionary dictionaryWithContentsOfFile:userDefaultsValuesPath];
+    
+    // set them in the standard user defaults
+    [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsValuesDict];
 }
+
+- (IBAction)close:(id)sender {
+    [NSApp terminate:nil];
+}
+
+- (IBAction)showAllWindows:(id)sender {
+    NSArray* windows = [NSApp windows];
+    [NSApp activateIgnoringOtherApps:YES];
+    for (NSWindow *win in windows) {
+        NSLog(@"%@",[win title]);
+        [win makeKeyAndOrderFront:nil];
+    }
+}
+
+
 @end

@@ -7,18 +7,41 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSONKit/JSONKit.h"
 
-@interface Session : NSObject
+@interface Session : NSObject{
+    NSString *token;
+    NSString *path;
+    NSArray *_contexts;
+    NSString *key;
+}
 
 @property (assign) NSString *username;
 @property (assign) NSString *password;
 @property (assign) NSString *userid;
 @property (assign) NSString *appid;
+@property (assign) NSString *apptoken;
 @property (assign) NSString *sig;
-@property (assign) NSString *token;
+//@property (assign) NSString *token;
+@property (assign) NSDate *tokenDate;
 
--(void)get_signature;
--(void)
 
+
+-(NSString*) token;
+
++(NSString*)md5:(NSString*)text;
+
+
+
+-(void)create_signature;
+
+-(void)token_callback:(NSData *) data;
+
+-(void)get_contexts;
+
+-(NSArray*)contexts;
+
+-(void)add_task:(NSMutableDictionary*) values;
 
 @end
+

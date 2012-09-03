@@ -7,10 +7,17 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "NewTaskWindowController.h"
 
 @class Task;
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate> {
+    IBOutlet NSMenu *statusMenu;
+    NSStatusItem * statusItem;
+    NewTaskWindowController *controller;
+    Session *session;
+    
+}
 
 @property (assign) IBOutlet NSWindow *window;
 
