@@ -16,6 +16,7 @@
     NSStatusItem * statusItem;
     NewTaskWindowController *controller;
     Session *session;
+    IBOutlet NSToolbarItem *accountToolbarItem;
     
 }
 

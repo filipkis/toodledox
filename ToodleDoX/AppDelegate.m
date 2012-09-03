@@ -10,6 +10,7 @@
 #import "Session.h"
 
 
+
 @implementation AppDelegate
 
 +(void)initialize {
@@ -28,6 +29,7 @@
            selector:@selector(newTaskWindow:)
                name:@"OpenMainWindow"
              object:nil];
+    [accountToolbarItem setEnabled:true];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -44,24 +46,6 @@
                                                };
                                                
                                            }];
-    //Task *aTask = [[Task alloc] init];
-    //[self setTask:aTask];
-    
-    
-    
-    /*NSString *tok = @"{\"token\":\"td50413e6157d31\"}";
-    NSData *data = [tok dataUsingEncoding:NSUTF8StringEncoding];
-
-    
-    
-    NSError *e = nil;
-    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableContainers error: &e];
-    
-    if (!jsonArray) {
-        NSLog(@"Error parsing JSON: %@", e);
-    } else {
-        NSLog(@"Token: %@",[jsonArray valueForKey:@"token"]);
-    }*/
     
 }
 

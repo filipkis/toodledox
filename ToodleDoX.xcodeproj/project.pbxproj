@@ -15,9 +15,7 @@
 		6D1E32AE15F10A6F003ABAFC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D1E32AC15F10A6F003ABAFC /* MainMenu.xib */; };
 		6D1E32BC15F1194D003ABAFC /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1E32BB15F1194D003ABAFC /* Session.m */; };
 		6D1E32BF15F135F6003ABAFC /* ToodledoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1E32BE15F135F6003ABAFC /* ToodledoRequest.m */; };
-		6D1E32C115F16733003ABAFC /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D1E32C015F16733003ABAFC /* Preferences.xib */; };
 		6D1E32C315F16F25003ABAFC /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D1E32C215F16F25003ABAFC /* UserDefaults.plist */; };
-		6D1E32CA15F41D6D003ABAFC /* glyphicons_198_ok.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D1E32C915F41D6C003ABAFC /* glyphicons_198_ok.png */; };
 		6D1E32CC15F420C7003ABAFC /* tray_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D1E32CB15F420C7003ABAFC /* tray_icon.png */; };
 		6D1E32CE15F42191003ABAFC /* tray_icon_invert.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D1E32CD15F42191003ABAFC /* tray_icon_invert.png */; };
 		6D1E32D415F42DB3003ABAFC /* NewTaskWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1E32D315F42DB3003ABAFC /* NewTaskWindowController.m */; };
@@ -45,9 +43,7 @@
 		6D1E32BB15F1194D003ABAFC /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
 		6D1E32BD15F135F6003ABAFC /* ToodledoRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToodledoRequest.h; sourceTree = "<group>"; };
 		6D1E32BE15F135F6003ABAFC /* ToodledoRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToodledoRequest.m; sourceTree = "<group>"; };
-		6D1E32C015F16733003ABAFC /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
 		6D1E32C215F16F25003ABAFC /* UserDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserDefaults.plist; sourceTree = "<group>"; };
-		6D1E32C915F41D6C003ABAFC /* glyphicons_198_ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_198_ok.png; sourceTree = "<group>"; };
 		6D1E32CB15F420C7003ABAFC /* tray_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tray_icon.png; sourceTree = "<group>"; };
 		6D1E32CD15F42191003ABAFC /* tray_icon_invert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tray_icon_invert.png; sourceTree = "<group>"; };
 		6D1E32D215F42DB3003ABAFC /* NewTaskWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTaskWindowController.h; sourceTree = "<group>"; };
@@ -113,7 +109,6 @@
 				6D1E32E115F4ECCA003ABAFC /* JSONKit */,
 				6D1E32CD15F42191003ABAFC /* tray_icon_invert.png */,
 				6D1E32CB15F420C7003ABAFC /* tray_icon.png */,
-				6D1E32C915F41D6C003ABAFC /* glyphicons_198_ok.png */,
 				6D1E32C215F16F25003ABAFC /* UserDefaults.plist */,
 				6D1E32A915F10A6F003ABAFC /* AppDelegate.h */,
 				6D1E32AA15F10A6F003ABAFC /* AppDelegate.m */,
@@ -126,7 +121,6 @@
 				6D1E32BB15F1194D003ABAFC /* Session.m */,
 				6D1E32BD15F135F6003ABAFC /* ToodledoRequest.h */,
 				6D1E32BE15F135F6003ABAFC /* ToodledoRequest.m */,
-				6D1E32C015F16733003ABAFC /* Preferences.xib */,
 			);
 			path = ToodleDoX;
 			sourceTree = "<group>";
@@ -208,9 +202,7 @@
 				6D1E32A215F10A6F003ABAFC /* InfoPlist.strings in Resources */,
 				6D1E32A815F10A6F003ABAFC /* Credits.rtf in Resources */,
 				6D1E32AE15F10A6F003ABAFC /* MainMenu.xib in Resources */,
-				6D1E32C115F16733003ABAFC /* Preferences.xib in Resources */,
 				6D1E32C315F16F25003ABAFC /* UserDefaults.plist in Resources */,
-				6D1E32CA15F41D6D003ABAFC /* glyphicons_198_ok.png in Resources */,
 				6D1E32CC15F420C7003ABAFC /* tray_icon.png in Resources */,
 				6D1E32CE15F42191003ABAFC /* tray_icon_invert.png in Resources */,
 				6D1E32D815F42DF1003ABAFC /* NewTaskWindow.xib in Resources */,
@@ -321,6 +313,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ToodleDoX/ToodleDoX-Prefix.pch";
 				INFOPLIST_FILE = "ToodleDoX/ToodleDoX-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SDKROOT)/usr/lib/system\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -333,6 +329,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ToodleDoX/ToodleDoX-Prefix.pch";
 				INFOPLIST_FILE = "ToodleDoX/ToodleDoX-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SDKROOT)/usr/lib/system\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -357,6 +357,7 @@
 				6D1E32B315F10A6F003ABAFC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
