@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[Session context_callback:]:Session.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Session add_task:]:Session.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self._key">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AppDelegate newTaskWindow:]:AppDelegate.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Session token]:Session.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "!time_interval">
+            </PersistentString>
+            <PersistentString
+               value = "[[self tokenDate] timeIntervalSinceNow]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[NewTaskWindowController awakeFromNib]:NewTaskWindowController.m">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
