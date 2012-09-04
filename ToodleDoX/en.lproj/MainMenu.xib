@@ -82,7 +82,7 @@
 						<reference key="NSOnImage" ref="345781738"/>
 						<reference key="NSMixedImage" ref="990156335"/>
 					</object>
-					<object class="NSMenuItem" id="126229593">
+					<object class="NSMenuItem" id="369286999">
 						<reference key="NSMenu" ref="873341618"/>
 						<bool key="NSIsDisabled">YES</bool>
 						<bool key="NSIsSeparator">YES</bool>
@@ -92,7 +92,7 @@
 						<reference key="NSOnImage" ref="345781738"/>
 						<reference key="NSMixedImage" ref="990156335"/>
 					</object>
-					<object class="NSMenuItem" id="110390879">
+					<object class="NSMenuItem" id="148667171">
 						<reference key="NSMenu" ref="873341618"/>
 						<bool key="NSIsDisabled">YES</bool>
 						<bool key="NSIsSeparator">YES</bool>
@@ -123,7 +123,7 @@
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{475, 409}, {369, 164}}</string>
 				<int key="NSWTFlags">1685586944</int>
-				<string key="NSWindowTitle">Window</string>
+				<string key="NSWindowTitle">Preferences</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<object class="NSToolbar" key="NSViewClass" id="770801558">
 					<object class="NSMutableString" key="NSToolbarIdentifier">
@@ -333,6 +333,7 @@
 							<string key="NSFrame">{{220, 34}, {132, 17}}</string>
 							<reference key="NSSuperview" ref="723176350"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="107546128">
@@ -480,8 +481,8 @@
 							<reference ref="821668852"/>
 							<reference ref="735336316"/>
 							<reference ref="1041406547"/>
-							<reference ref="110390879"/>
-							<reference ref="126229593"/>
+							<reference ref="148667171"/>
+							<reference ref="369286999"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1051,12 +1052,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">839</int>
-						<reference key="object" ref="110390879"/>
+						<reference key="object" ref="148667171"/>
 						<reference key="parent" ref="873341618"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">840</int>
-						<reference key="object" ref="126229593"/>
+						<reference key="object" ref="369286999"/>
 						<reference key="parent" ref="873341618"/>
 					</object>
 				</array>
@@ -1162,25 +1163,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">AppDelegate</string>
 					<string key="superclassName">NSObject</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="add:">id</string>
-						<string key="takeStringForContext:">id</string>
-						<string key="takeStringForName:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="add:">
-							<string key="name">add:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="takeStringForContext:">
-							<string key="name">takeStringForContext:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="takeStringForName:">
-							<string key="name">takeStringForName:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="accountToolbarItem">NSToolbarItem</string>
 						<string key="statusMenu">NSMenu</string>
