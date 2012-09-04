@@ -14,6 +14,7 @@
 }
 
 @property (assign) Session* session;
+@property (assign) NSMenu* menu;
 @property (retain) NSMutableDictionary *task;
 @property (assign) IBOutlet NSButton *taskCheckBox;
 @property (assign) IBOutlet NSTextField *contextText;

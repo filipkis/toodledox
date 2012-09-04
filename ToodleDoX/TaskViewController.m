@@ -37,6 +37,7 @@
     NSDate* now = [NSDate date];
     [[self task] setObject:[NSString stringWithFormat:@"%.0f",[now timeIntervalSince1970]] forKey:@"completed"];
     [[self session] edit_task:[self task]];
+    [[[[self view] enclosingMenuItem] menu] cancelTracking];
 }
 
 @end

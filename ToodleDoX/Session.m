@@ -24,14 +24,14 @@
         [self setAppid:@"toodledoxapp"];
         [self setApptoken:@"api5040f03769d18"];
         [self create_signature];        
-        key=[Session md5:[NSString stringWithFormat:@"%@%@%@",
-                                [[self password] lowercaseString],[self apptoken],token]];
-        timer = [NSTimer scheduledTimerWithTimeInterval:5
+        [self set_key:token];
+        timer = [NSTimer scheduledTimerWithTimeInterval:60
                                                  target:self
                                                selector:@selector(refresh:)
                                                userInfo:nil
                                                 repeats:YES];
-        [self get_token];
+        NSLog(@"Initialization complete:\n -userid: %@\n -tdate:  %@\n -pass_5: %@\n -appid:  %@\n -apptok: %@\n -sig:    %@\n -token:  %@\n -key:    %@",[self userid],[self tokenDate],[self password],[self appid],[self apptoken],[self sig],token,key);
+        [self refresh:nil];
     }
     return self;
 }
@@ -39,6 +39,11 @@
 
 -(void)create_signature {
     [self setSig:[Session md5:[NSString stringWithFormat:@"%@%@",[self userid],[self apptoken]]]];
+}
+
+-(void)set_key:(NSString*) t {
+    key = [Session md5:[NSString stringWithFormat:@"%@%@%@",
+                        [[self password] lowercaseString],[self apptoken],t]];
 }
 
 +(NSString*)md5:(NSString*)text{
@@ -50,7 +55,7 @@
 
 -(void) get_token {
     if(token){
-        double time_interval = 3*60*60;
+        double time_interval = 1*60*60;
         if(time_interval>fabs([[self tokenDate] timeIntervalSinceNow])){
             [self get_contexts];
             [self get_tasks];
@@ -60,8 +65,7 @@
     NSString *url = [NSString stringWithFormat:@"%@account/token.php?userid=%@;appid=%@;sig=%@",path,[self userid], [self appid], [self sig]];
     ToodledoRequest* request = [[ToodledoRequest alloc] init];
     [request request:url requestDelegate:self requestSelector:@selector(get_token_callback:)];
-    [self get_contexts];
-    [self get_tasks];
+
 }
 
 -(void)get_token_callback:(NSData *) data {
@@ -70,19 +74,19 @@
     NSLog(@"At %@ recieved token: %@ ",[self tokenDate],response);
     NSError *e = nil;
     NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableContainers error: &e];
-    
+    NSLog(@"%@",jsonArray);
     if (!jsonArray) {
         NSLog(@"Error parsing JSON: %@", e);
     } else {
-        for(NSDictionary *item in jsonArray) {
-            token = [jsonArray valueForKey:@"token"];
-            [[NSUserDefaults standardUserDefaults] setValue:token forKey:@"token"];
-                        [[NSUserDefaults standardUserDefaults] setObject:[self tokenDate] forKey:@"tokenDate"];
-            key = [Session md5:[NSString stringWithFormat:@"%@%@%@",
-                                    [self password],[self apptoken],token]];
-        }
+        token = [jsonArray valueForKey:@"token"];
+        [[NSUserDefaults standardUserDefaults] setValue:token forKey:@"token"];
+        [[NSUserDefaults standardUserDefaults] setObject:[self tokenDate] forKey:@"tokenDate"];
+        [self set_key:token];
+        [self get_contexts];
+        [self get_tasks];
+        NSLog(@"Token: %@ token date: %@",token,[self tokenDate]);
     }
-    NSLog(@"Token: %@ token date: %@",token,[self tokenDate]);
+
 }
 
 -(NSArray*)contexts {
@@ -130,7 +134,8 @@
     if (!jsonArray) {
         NSLog(@"Error parsing JSON: %@", e);
     } else {
-        _tasks = jsonArray;
+        NSLog(@"%@",jsonArray);
+        _tasks = [NSMutableArray arrayWithArray:jsonArray];
         if([[self owner] respondsToSelector:@selector(tasks_updated:)]) {
             [[self owner] performSelector:@selector(tasks_updated:) withObject:_tasks];
         } else {
@@ -147,13 +152,40 @@
 }
 
 -(void)add_task:(NSMutableDictionary*) values{
-    NSString *url = [NSString stringWithFormat:@"%@tasks/add.php?key=%@;tasks=%@",path,key,[values JSONString]];
+    NSString *url = [NSString stringWithFormat:@"%@tasks/add.php?key=%@;tasks=%@;fields=context,duedate",path,key,[values JSONString]];
     ToodledoRequest* request = [[ToodledoRequest alloc] init];
     [request request:url requestDelegate:self requestSelector:@selector(task_callback:)];
 }
 
 -(void)task_callback:(NSData*) data {
-    [self get_tasks];
+    NSError *e = nil;
+    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableContainers error: &e];
+    if (!jsonArray) {
+        NSLog(@"Error parsing JSON: %@", e);
+    } else {
+        id error = [jsonArray valueForKey:@"errorCode"];
+        NSLog(@"Returned: %@",jsonArray);
+        if([[error objectAtIndex:0] class] != [NSNull class]){
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert addButtonWithTitle:@"OK"];
+            [alert setMessageText:@"Error syncing"];
+            [alert setInformativeText:@"An error occured while synicng with the server. Please try again later."];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert runModal];
+        } else {
+            NSDictionary* returned_task = [jsonArray objectAtIndex:0];
+            for(NSDictionary* t in _tasks) {
+                if ([(NSString*)[t valueForKey:@"id"] isEqualToString:[returned_task valueForKey:@"id"]]) {
+                    [_tasks removeObject:t];
+                    [[self owner] performSelector:@selector(tasks_updated:) withObject:_tasks];
+                    return;
+                }
+            }
+            [_tasks addObject:returned_task];
+            [[self owner] performSelector:@selector(tasks_updated:) withObject:_tasks];
+        }
+    }
+    //[self get_tasks];
 }
 
 -(void)refresh:(id)arg {

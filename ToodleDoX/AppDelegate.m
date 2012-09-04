@@ -14,6 +14,9 @@
 
 @implementation AppDelegate
 
+int menu_position = 4;
+int menu_items_initial_count;
+
 +(void)initialize {
     [self setupDefaults];
 }
@@ -31,6 +34,7 @@
                name:@"OpenMainWindow"
              object:nil];
     [accountToolbarItem setEnabled:true];
+    menu_items_initial_count =  statusMenu.itemArray.count;
     
 }
 
@@ -53,14 +57,14 @@
     
 }
 
-- (void)tasks_updated:(NSArray*) tasks {
+- (void)tasks_updated:(NSMutableArray*) tasks {
     utask = 0;
     //NSMutableArray* sorted = [NSMutableArray arrayWithArray:tasks];
-    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"duedate"  ascending:YES];
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"duedate"  ascending:NO];
     NSArray * sorted =[tasks sortedArrayUsingDescriptors:[NSArray arrayWithObjects:descriptor,nil]];
     
-    while ([statusMenu numberOfItems]>4){
-        [statusMenu removeItemAtIndex:4];
+    while ([statusMenu numberOfItems]>menu_items_initial_count){
+        [statusMenu removeItemAtIndex:menu_position];
     }
     
     
@@ -81,13 +85,13 @@
             if([tdate timeIntervalSinceDate:now]<0 || [tdate_day timeIntervalSinceDate:now_day] == 0){
                 NSLog(@"Task %@",taskc);
                 utask++;
-                TaskViewController* taskViewC = [TaskViewController initWithTask:taskc session:session];
+                TaskViewController* taskViewC = [TaskViewController initWithTask:taskc session:session ];
                 NSMenuItem* newItem;
                 newItem = [[NSMenuItem alloc]init];
                 [newItem setView: [taskViewC view]];
                 [newItem setTarget:self];
-                [statusMenu addItem:newItem];
-                [taskViewControllers addObject:taskViewC];
+                [statusMenu insertItem:newItem atIndex:menu_position];
+                [taskViewControllers addObject:taskViewC ];
             } 
         }
     }
@@ -141,8 +145,9 @@
     NSArray* windows = [NSApp windows];
     [NSApp activateIgnoringOtherApps:YES];
     for (NSWindow *win in windows) {
-        NSLog(@"%@",[win title]);
-        [win makeKeyAndOrderFront:nil];
+        if(![[win title] isEqualToString:@"Preferences"]){
+            [win makeKeyAndOrderFront:nil];
+        }
     }
 }
 

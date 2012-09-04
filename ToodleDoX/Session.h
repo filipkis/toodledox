@@ -14,18 +14,18 @@
     NSString *path;
     NSArray *_contexts;
     NSString *key;
-    NSArray *_tasks;
+    NSMutableArray *_tasks;
     NSTimer *timer;
 }
 
-@property (assign) id owner;
-@property (assign) NSString *username;
-@property (assign) NSString *password;
-@property (assign) NSString *userid;
-@property (assign) NSString *appid;
-@property (assign) NSString *apptoken;
-@property (assign) NSString *sig;
-@property (assign) NSDate *tokenDate;
+@property (retain) id owner;
+@property (retain) NSString *username;
+@property (retain) NSString *password;
+@property (retain) NSString *userid;
+@property (retain) NSString *appid;
+@property (retain) NSString *apptoken;
+@property (retain) NSString *sig;
+@property (retain) NSDate *tokenDate;
 
 +(NSString*)md5:(NSString*)text;
 
