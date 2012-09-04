@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Session.h"
+#import "TaskViewController.h"
 
 
 
@@ -30,11 +31,13 @@
                name:@"OpenMainWindow"
              object:nil];
     [accountToolbarItem setEnabled:true];
+    utask = 0;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     session = [[Session alloc] init];
+    [session setOwner:self];
 
     
     [NSEvent addGlobalMonitorForEventsMatchingMask:NSKeyDownMask
@@ -49,6 +52,60 @@
     
 }
 
+- (void)tasks_updated:(NSArray*) tasks {
+    utask = 0;
+    //NSMutableArray* sorted = [NSMutableArray arrayWithArray:tasks];
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"duedate"  ascending:YES];
+    NSArray * sorted =[tasks sortedArrayUsingDescriptors:[NSArray arrayWithObjects:descriptor,nil]];
+    
+    while ([statusMenu numberOfItems]>4){
+        [statusMenu removeItemAtIndex:4];
+    }
+    
+    
+    taskViewControllers = [NSMutableArray array];
+    for(NSDictionary* task in sorted){
+        NSMutableDictionary* taskc = [NSMutableDictionary dictionaryWithDictionary:task];
+        NSString* contextName = [session getContextById:[task objectForKey:@"context"]];
+        if(contextName){
+            [taskc setObject:contextName forKey:@"contextName"];
+        }
+        double tidate =[(NSString*)[task valueForKey:@"duedate"] doubleValue];
+        if(tidate>0) {
+            NSDate* tdate = [NSDate  dateWithTimeIntervalSince1970:tidate];
+            NSDate* now = [NSDate date];
+            NSDate* tdate_day = [self dateWithOnlyDay:tdate];
+            NSDate* now_day =[self dateWithOnlyDay:now];
+            //NSLog(@"Date %@ Now %@",tdate_day,now_day);
+            if([tdate timeIntervalSinceDate:now]<0 || [tdate_day timeIntervalSinceDate:now_day] == 0){
+                NSLog(@"Task %@",taskc);
+                utask++;
+                TaskViewController* taskViewC = [TaskViewController initWithTask:taskc session:session];
+                NSMenuItem* newItem;
+                newItem = [[NSMenuItem alloc]init];
+                [newItem setView: [taskViewC view]];
+                [newItem setTarget:self];
+                [statusMenu addItem:newItem];
+                [taskViewControllers addObject:taskViewC];
+            } 
+        }
+    }
+    if(utask > 0) {
+        [statusItem setTitle:[NSString stringWithFormat:@"%i",utask]];
+     } else {
+        [statusItem setTitle:nil];
+     }
+}
+
+-(NSDate*)dateWithOnlyDay:(NSDate*)date {
+    unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    
+    NSDateComponents* components = [calendar components:flags fromDate:date];
+    
+    return [calendar dateFromComponents:components];
+}
+
 
 - (IBAction)add:(id)sender {
 }
@@ -58,7 +115,6 @@
     controller = [[NewTaskWindowController alloc] initWithWindowNibName:@"NewTaskWindow"];
     [controller setSession:session];
     [controller showWindow:self];
-
 
 }
 

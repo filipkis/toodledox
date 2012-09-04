@@ -32,6 +32,7 @@
         key=[Session md5:[NSString stringWithFormat:@"%@%@%@",
                                 [[self password] lowercaseString],[self apptoken],token]];
         [self get_contexts];
+        [self get_tasks];
     }
     return self;
 }
@@ -106,12 +107,56 @@
     return _contexts;
 }
 
+-(NSString*)getContextById:(NSString*)cid {
+    for(NSDictionary *context in _contexts){
+        if([[context objectForKey:@"id"] isEqualToString:cid]){
+            return [context objectForKey:@"name"];
+        }
+    }
+    return nil;
+}
+
 -(void)add_task:(NSMutableDictionary*) values{
     NSString *url = [NSString stringWithFormat:@"%@tasks/add.php?key=%@;tasks=%@",path,key,[values JSONString]];
+    ToodledoRequest* request = [[ToodledoRequest alloc] init];
+    [request request:url requestDelegate:self requestSelector:@selector(task_callback:)];
+}
+
+-(void)task_callback:(NSData*) data {
+    [self get_tasks];
+}
+
+-(void)get_tasks {
+    NSString *url = [NSString stringWithFormat:@"%@tasks/get.php?key=%@;comp=0;fields=context,duedate,note",path,key];
     NSLog(@"%@",url);
     ToodledoRequest* request = [[ToodledoRequest alloc] init];
-    [request request:url requestDelegate:self requestSelector:nil];
+    [request request:url requestDelegate:self requestSelector:@selector(get_tasks_callback:)];
 }
+
+-(void)get_tasks_callback:(NSData *) data {
+    NSError *e = nil;
+    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableContainers error: &e];
+    
+    if (!jsonArray) {
+        NSLog(@"Error parsing JSON: %@", e);
+    } else {
+        _tasks = jsonArray;
+        if([[self owner] respondsToSelector:@selector(tasks_updated:)]) {
+            [[self owner] performSelector:@selector(tasks_updated:) withObject:_tasks];
+        } else {
+            NSLog(@"No response from tasks_update");
+        }
+    }
+}
+
+-(void)edit_task:(NSMutableDictionary*) values {
+    NSString *url = [NSString stringWithFormat:@"%@tasks/edit.php?key=%@;tasks=%@",path,key,[values JSONString]];
+    NSLog(@"%@",url);
+    ToodledoRequest* request = [[ToodledoRequest alloc] init];
+    [request request:url requestDelegate:self requestSelector:@selector(task_callback:)];
+}
+
+
 @end
 
 

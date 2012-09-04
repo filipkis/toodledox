@@ -14,8 +14,10 @@
     NSString *path;
     NSArray *_contexts;
     NSString *key;
+    NSArray *_tasks;
 }
 
+@property (assign) id owner;
 @property (assign) NSString *username;
 @property (assign) NSString *password;
 @property (assign) NSString *userid;
@@ -39,9 +41,12 @@
 
 -(void)get_contexts;
 
+-(NSString*)getContextById:(NSString*)cid;
+
 -(NSArray*)contexts;
 
 -(void)add_task:(NSMutableDictionary*) values;
+-(void)edit_task:(NSMutableDictionary*) values;
 
 @end
 

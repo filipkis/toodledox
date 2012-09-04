@@ -17,9 +17,12 @@
     NewTaskWindowController *controller;
     Session *session;
     IBOutlet NSToolbarItem *accountToolbarItem;
+    int utask;
+    NSMutableArray* taskViewControllers;
     
 }
 
+//@property (assign) NSInteger* utask;
 @property (assign) IBOutlet NSWindow *window;
 
 - (IBAction)add:(id)sender;
