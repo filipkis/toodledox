@@ -15,6 +15,7 @@
     NSArray *_contexts;
     NSString *key;
     NSArray *_tasks;
+    NSTimer *timer;
 }
 
 @property (assign) id owner;
@@ -24,26 +25,13 @@
 @property (assign) NSString *appid;
 @property (assign) NSString *apptoken;
 @property (assign) NSString *sig;
-//@property (assign) NSString *token;
 @property (assign) NSDate *tokenDate;
-
-
-
--(NSString*) token;
 
 +(NSString*)md5:(NSString*)text;
 
-
-
--(void)create_signature;
-
--(void)token_callback:(NSData *) data;
-
--(void)get_contexts;
-
--(NSString*)getContextById:(NSString*)cid;
-
 -(NSArray*)contexts;
+-(void)get_contexts;
+-(NSString*)contextById:(NSString*)cid;
 
 -(void)add_task:(NSMutableDictionary*) values;
 -(void)edit_task:(NSMutableDictionary*) values;

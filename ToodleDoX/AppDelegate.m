@@ -31,13 +31,14 @@
                name:@"OpenMainWindow"
              object:nil];
     [accountToolbarItem setEnabled:true];
-    utask = 0;
+    
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     session = [[Session alloc] init];
     [session setOwner:self];
+
 
     
     [NSEvent addGlobalMonitorForEventsMatchingMask:NSKeyDownMask
@@ -66,7 +67,7 @@
     taskViewControllers = [NSMutableArray array];
     for(NSDictionary* task in sorted){
         NSMutableDictionary* taskc = [NSMutableDictionary dictionaryWithDictionary:task];
-        NSString* contextName = [session getContextById:[task objectForKey:@"context"]];
+        NSString* contextName = [session contextById:[task objectForKey:@"context"]];
         if(contextName){
             [taskc setObject:contextName forKey:@"contextName"];
         }
