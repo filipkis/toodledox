@@ -25,6 +25,7 @@
 //@property (assign) NSInteger* utask;
 @property (assign) IBOutlet NSWindow *window;
 
+- (IBAction)newTaskWindow:(id)sender;
 
 @property (strong) Task *task;
 

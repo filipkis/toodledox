@@ -9,7 +9,8 @@
 #import "AppDelegate.h"
 #import "Session.h"
 #import "TaskViewController.h"
-
+#import "JFHotkeyManager/JFHotkeyManager.h"
+#import "DDHotKey/DDHotKeyCenter.h"
 
 
 @implementation AppDelegate
@@ -42,19 +43,30 @@ int menu_items_initial_count;
 {
     session = [[Session alloc] init];
     [session setOwner:self];
-
-
     
-    [NSEvent addGlobalMonitorForEventsMatchingMask:NSKeyDownMask
-                                           handler:^(NSEvent * event){
-                                               int flags = [event modifierFlags];
-                                               int altDown = flags & NSAlternateKeyMask;
-                                               if (([event keyCode] == 7) && altDown) {
-                                                   [[NSNotificationCenter defaultCenter] postNotificationName:@"OpenMainWindow" object:nil];
-                                               };
-                                               
-                                           }];
+    EventHotKeyRef gMyHotKeyRef;
+    EventHotKeyID gMyHotKeyID;
+    EventTypeSpec eventType;
+    eventType.eventClass=kEventClassKeyboard;
+    eventType.eventKind=kEventHotKeyPressed;
     
+    InstallApplicationEventHandler(&MyHotKeyHandler,1,&eventType,(void *)CFBridgingRetain(self),NULL);
+
+    gMyHotKeyID.signature='htk1';
+    gMyHotKeyID.id=1;
+    
+    RegisterEventHotKey(17, cmdKey+controlKey, gMyHotKeyID,
+                        GetApplicationEventTarget(), 0, &gMyHotKeyRef);
+    
+    
+}
+
+OSStatus MyHotKeyHandler(EventHandlerCallRef nextHandler,EventRef theEvent,
+                         void *userData)
+{
+    AppDelegate* myself = (__bridge AppDelegate*)userData;
+    [myself newTaskWindow:nil];
+    return noErr;
 }
 
 - (void)tasks_updated:(NSMutableArray*) tasks {
@@ -109,6 +121,9 @@ int menu_items_initial_count;
     return [calendar dateFromComponents:components];
 }
 
+- (void)test {
+    NSLog(@"Bla");
+}
 
 - (IBAction)add:(id)sender {
 }
