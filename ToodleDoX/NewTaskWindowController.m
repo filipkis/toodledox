@@ -51,7 +51,6 @@
         if(description.length >0) {
             [values setObject:description forKey:@"note"];
         }
-        //NSLog(@"%@",values);
         [session add_task:values];
         [self close];
 

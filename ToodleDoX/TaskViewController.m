@@ -39,5 +39,9 @@
     [[self session] edit_task:[self task]];
     [[[[self view] enclosingMenuItem] menu] cancelTracking];
 }
+- (IBAction)task_web:(id)sender {
+    NSString* url = [NSString stringWithFormat: @"http://www.toodledo.com/tasks/index.php?#task_%@", [[self task] valueForKey:@"id"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+}
 
 @end

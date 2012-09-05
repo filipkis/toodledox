@@ -81,9 +81,7 @@ int menu_items_initial_count;
             NSDate* now = [NSDate date];
             NSDate* tdate_day = [self dateWithOnlyDay:tdate];
             NSDate* now_day =[self dateWithOnlyDay:now];
-            //NSLog(@"Date %@ Now %@",tdate_day,now_day);
             if([tdate timeIntervalSinceDate:now]<0 || [tdate_day timeIntervalSinceDate:now_day] == 0){
-                NSLog(@"Task %@",taskc);
                 utask++;
                 TaskViewController* taskViewC = [TaskViewController initWithTask:taskc session:session ];
                 NSMenuItem* newItem;

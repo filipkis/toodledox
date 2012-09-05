@@ -71,10 +71,8 @@
 -(void)get_token_callback:(NSData *) data {
     [self setTokenDate : [NSDate date]];
     NSString *response = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-    NSLog(@"At %@ recieved token: %@ ",[self tokenDate],response);
     NSError *e = nil;
     NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableContainers error: &e];
-    NSLog(@"%@",jsonArray);
     if (!jsonArray) {
         NSLog(@"Error parsing JSON: %@", e);
     } else {
@@ -84,7 +82,6 @@
         [self set_key:token];
         [self get_contexts];
         [self get_tasks];
-        NSLog(@"Token: %@ token date: %@",token,[self tokenDate]);
     }
 
 }
@@ -122,7 +119,6 @@
 
 -(void)get_tasks {
     NSString *url = [NSString stringWithFormat:@"%@tasks/get.php?key=%@;comp=0;fields=context,duedate,note",path,key];
-    NSLog(@"%@",url);
     ToodledoRequest* request = [[ToodledoRequest alloc] init];
     [request request:url requestDelegate:self requestSelector:@selector(get_tasks_callback:)];
 }
@@ -134,7 +130,6 @@
     if (!jsonArray) {
         NSLog(@"Error parsing JSON: %@", e);
     } else {
-        NSLog(@"%@",jsonArray);
         _tasks = [NSMutableArray arrayWithArray:jsonArray];
         if([[self owner] respondsToSelector:@selector(tasks_updated:)]) {
             [[self owner] performSelector:@selector(tasks_updated:) withObject:_tasks];
@@ -146,7 +141,6 @@
 
 -(void)edit_task:(NSMutableDictionary*) values {
     NSString *url = [NSString stringWithFormat:@"%@tasks/edit.php?key=%@;tasks=%@",path,key,[values JSONString]];
-    NSLog(@"%@",url);
     ToodledoRequest* request = [[ToodledoRequest alloc] init];
     [request request:url requestDelegate:self requestSelector:@selector(task_callback:)];
 }
