@@ -51,8 +51,8 @@
 					<object class="NSMenuItem" id="985391254">
 						<reference key="NSMenu" ref="873341618"/>
 						<string key="NSTitle">New Task</string>
-						<string key="NSKeyEquiv">n</string>
-						<int key="NSKeyEquivModMask">1048576</int>
+						<string key="NSKeyEquiv">t</string>
+						<int key="NSKeyEquivModMask">1310720</int>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<object class="NSCustomResource" key="NSOnImage" id="345781738">
 							<string key="NSClassName">NSImage</string>
@@ -1163,6 +1163,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">AppDelegate</string>
 					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">newTaskWindow:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">newTaskWindow:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">newTaskWindow:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="accountToolbarItem">NSToolbarItem</string>
 						<string key="statusMenu">NSMenu</string>

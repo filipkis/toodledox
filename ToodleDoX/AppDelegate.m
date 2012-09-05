@@ -9,8 +9,7 @@
 #import "AppDelegate.h"
 #import "Session.h"
 #import "TaskViewController.h"
-#import "JFHotkeyManager/JFHotkeyManager.h"
-#import "DDHotKey/DDHotKeyCenter.h"
+#import <Carbon/Carbon.h>
 
 
 @implementation AppDelegate
